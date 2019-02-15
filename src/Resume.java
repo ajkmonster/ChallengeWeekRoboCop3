@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Resume extends Person {
+public class Resume {
     private Person person;
     private ArrayList<Education> educationList;
     private ArrayList<Experience> experienceList;

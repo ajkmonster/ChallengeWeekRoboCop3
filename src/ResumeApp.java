@@ -18,51 +18,58 @@ public class ResumeApp {
     private static String newExp;
     private static String addNew;
     private static String newSkl;
+    private static String newName;
     public static ResumeDatabase resumeList;
 
     public static void main(String[] args) {
         list = new ArrayList<>();
         resumeList = new ResumeDatabase(list);
-        educationList = new ArrayList<>();
-        experienceList = new ArrayList<>();
-        skillsList = new ArrayList<>();
-
+        Scanner key1 = new Scanner(System.in);
+        Recruiter recruiter = new Recruiter();
         do {
             resume = new Resume(new Person(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-            person = new Person();
-            System.out.println("Here we will be asking about you.");
-            System.out.print("Please enter your first name: ");
             Scanner key = new Scanner(System.in);
-            String firstName = key.nextLine().toLowerCase();
-            firstName = returnUpper(firstName);
-            System.out.print("Please enter your last name: ");
-            String lastName = key.nextLine().toLowerCase();
-            lastName = returnUpper(lastName);
-            String name = firstName + " " + lastName;
-            person.setName(name);
-            System.out.print("Please enter your telephone: ");
-            String phone = key.nextLine();
-            isValid = isPhoneNumberValid(phone);
-            if (isValid == true) {
-                person.setTelephone(phone);
-            } else {
-                System.out.println("Invalid phone number. Try again.");
-                break;
-            }
-            System.out.print("Please enter your email: ");
-            String email = key.nextLine();
-            isValid = isEmailValid(email);
-            if (isValid == true) {
-                person.setEmail(email);
-            } else {
-                System.out.println("Invalid email. Try again.");
-                break;
-            }
+            do {
+                person = new Person();
+                System.out.println("Here we will be asking about you.");
+                System.out.print("Please enter your first name: ");
+                String firstName = key.nextLine().toLowerCase();
+                firstName = returnUpper(firstName);
+                System.out.print("Please enter your last name: ");
+                String lastName = key.nextLine().toLowerCase();
+                lastName = returnUpper(lastName);
+                String name = firstName + " " + lastName;
+                person.setName(name);
+                do {
+                    System.out.print("Please enter your telephone: ");
+                    String phone = key.nextLine();
+                    isValid = isPhoneNumberValid(phone);
+                    if (isValid) {
+                        person.setTelephone(phone);
+                    } else {
+                        System.out.println("Invalid phone number. Try again.");
+                    }
+                } while (!isValid);
+                do {
+                    System.out.print("Please enter your email: ");
+                    String email = key.nextLine();
+                    isValid = isEmailValid(email);
+                    if (isValid) {
+                        person.setEmail(email);
+                    } else {
+                        System.out.println("Invalid email. Try again.");
+                    }
+                } while (!isValid);
+                System.out.println("Would you like to change your information? (Y/N):");
+                newName = key.nextLine();
+            } while (newName.equalsIgnoreCase("Y"));
             resume.setPerson(person);
             System.out.print("Here we will be asking about your education.");
             System.out.print("Do you have any education? (Y/N): ");
             String eduAns = key.nextLine();
+            educationList = new ArrayList<>();
             do {
+
                 education = new Education();
                 if (eduAns.equalsIgnoreCase("y")) {
                     System.out.print("Please enter your degree: ");
@@ -78,17 +85,20 @@ public class ResumeApp {
                     String year = key.nextLine();
                     education.setYear(year);
                     educationList.add(education);
-                    resume.setEducationList(educationList);
+
                     System.out.print("Do you want to add another education? (Y/N): ");
                     newEdu = key.nextLine();
                 } else {
                     break;
                 }
             } while (newEdu.equalsIgnoreCase("Y"));
+            resume.setEducationList(educationList);
             System.out.print("Here we will be asking about your experience.");
             System.out.print("Do you have any experience? (Y/N): ");
             String expAns = key.nextLine();
+            experienceList = new ArrayList<>();
             do {
+
                 experience = new Experience();
                 if (expAns.equalsIgnoreCase("Y")) {
                     System.out.print("Please enter your company: ");
@@ -104,7 +114,6 @@ public class ResumeApp {
                     String description = key.nextLine();
                     experience.setDescription(description);
                     experienceList.add(experience);
-                    resume.setExperienceList(experienceList);
                     System.out.print("Do you want to add another experience? (Y/N): ");
                     newExp = key.nextLine();
 
@@ -112,54 +121,64 @@ public class ResumeApp {
                     break;
                 }
             } while (newExp.equalsIgnoreCase("Y"));
-
+            resume.setExperienceList(experienceList);
             System.out.print("Here we will be asking about your skills.");
             System.out.print("Do you have any skills? (Y/N): ");
             String sklAns = key.nextLine();
+            skillsList = new ArrayList<>();
             do {
+
                 skills = new Skills();
                 if (sklAns.equalsIgnoreCase("Y")) {
                     System.out.print("Please enter your skill: ");
                     String skill = key.nextLine();
+                    skill = returnUpper(skill);
                     skills.setSkill(skill);
                     System.out.print("Please enter your proficiency (Fundamental, Novice, Intermediate, Advanced, Expert): ");
                     String rating = key.nextLine();
                     skills.setRating(rating);
                     skillsList.add(skills);
-                    resume.setSkillsList(skillsList);
                     System.out.print("Do you want to add another skill? (Y/N): ");
                     newSkl = key.nextLine();
                 } else {
                     break;
                 }
             } while (newSkl.equalsIgnoreCase("y"));
+            resume.setSkillsList(skillsList);
             list.add(resume);
             resumeList.setResumelist(list);
             System.out.print("Would you like to see your resume list so far? (Y/N)");
             String print = key.nextLine();
             if (print.equalsIgnoreCase("y")) {
                 int y = 1;
-                for (Resume printer : resumeList.getResumeList()) {
-                    System.out.println("\n" + "Resume " + y + "\n");
-                    System.out.println(printer.toString() + "\n");
-                    System.out.println("Education");
-                    for (Education printer1 : printer.getEducationList()) {
-                        System.out.println(printer1.toString());
-                    }
-                    System.out.println("\n" + "Experience");
-                    for (Experience printer2 : printer.getExperienceList()) {
-                        System.out.println(printer2.toString());
-                    }
-                    System.out.println("\n" + "Skills");
-                    for (Skills printer3 : printer.getSkillsList()) {
-                        System.out.println(printer3.toString());
-                    }
-                    y += 1;
+                for (Resume printerx : resumeList.getResumeList()) {
+                    y = printerMethod(printerx, y) + 1;
                 }
             }
             System.out.print("\n" + "Do you want to add another Resume? (Y/N): ");
             addNew = key.nextLine();
         } while (addNew.equalsIgnoreCase("y"));
+
+        System.out.println("You are now a recruiter!");
+        System.out.println("What skill would you like to find in the resume list? ");
+        String skillinput = key1.nextLine();
+        skillinput = returnUpper(skillinput);
+        Skills recruiterSkill = new Skills();
+        recruiterSkill.setSkill(skillinput);
+        recruiter.setSkills(recruiterSkill);
+
+        int y = 1;
+        for (Resume printer : resumeList.getResumeList()) {
+            for (Skills printer3 : printer.getSkillsList()) {
+                if ((recruiterSkill.getSkill().equalsIgnoreCase(printer3.getSkill()))) {
+                    y = printerMethod(printer, y) + 1;
+                } else {
+                    System.out.println("The list does not contain your Skill.");
+                }
+            }
+
+        }
+
     }
 
     private static boolean isEmailValid(String email) {
@@ -192,5 +211,23 @@ public class ResumeApp {
     public static String returnUpper(String upper) {
         upper = upper.substring(0, 1).toUpperCase() + upper.substring(1).toLowerCase();
         return upper;
+    }
+
+    public static int printerMethod(Resume printer, int y) {
+        System.out.println("\n" + "Resume " + y + "\n");
+        System.out.println(printer.toString() + "\n");
+        System.out.println("Education");
+        for (Education printer1 : printer.getEducationList()) {
+            System.out.println(printer1.toString());
+        }
+        System.out.println("\n" + "Experience");
+        for (Experience printer2 : printer.getExperienceList()) {
+            System.out.println(printer2.toString());
+        }
+        System.out.println("\n" + "Skills");
+        for (Skills printer4 : printer.getSkillsList()) {
+            System.out.println(printer4.toString());
+        }
+        return y;
     }
 }
