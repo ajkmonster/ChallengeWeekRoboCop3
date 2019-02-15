@@ -1,8 +1,8 @@
 public class Education extends Person {
-private String degree;
-private String major;
-private String school;
-private String year;
+    private String degree;
+    private String major;
+    private String school;
+    private String year;
 
     public Education(String degree, String major, String school, String year) {
         this.degree = degree;
@@ -11,11 +11,11 @@ private String year;
         this.year = year;
     }
 
-    public Education(){
-        degree ="";
+    public Education() {
+        degree = "";
         major = "";
-        school ="";
-        year ="";
+        school = "";
+        year = "";
     }
 
     public String getDegree() {
@@ -49,9 +49,10 @@ private String year;
     public void setYear(String year) {
         this.year = year;
     }
+
     @Override
     public String toString() {
-        return  degree+" in "+major+","+"\n" +
-                school+", "+year +"\n";
+        return degree + " in " + major + "," + "\n" +
+                school + ", " + year + "\n";
     }
 }

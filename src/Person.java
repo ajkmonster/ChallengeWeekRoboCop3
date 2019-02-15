@@ -2,11 +2,13 @@ public class Person {
     private String name;
     private String email;
     private String telephone;
-    public Person(){
-       name = "";
-       email = "";
-       telephone ="";
+
+    public Person() {
+        name = "";
+        email = "";
+        telephone = "";
     }
+
     public Person(String name, String email, String telephone) {
         this.name = name;
         this.email = email;
@@ -36,8 +38,9 @@ public class Person {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
     public String toString() {
-        return  "Name:      " + name + "\n" +
+        return "Name:      " + name + "\n" +
                 "Telephone: " + telephone + "\n" +
                 "Email:     " + email;
     }

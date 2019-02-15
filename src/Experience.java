@@ -13,10 +13,10 @@ public class Experience extends Person {
     }
 
     public Experience() {
-        company="";
-        title="";
-        date="";
-        description="";
+        company = "";
+        title = "";
+        date = "";
+        description = "";
     }
 
     public String getCompany() {
@@ -50,10 +50,11 @@ public class Experience extends Person {
     public void setDescription(String description) {
         this.description = description;
     }
+
     @Override
     public String toString() {
-        return  title + "\n" +
-                company+", "+ date + "\n" +
-                description +"\n";
+        return title + "\n" +
+                company + ", " + date + "\n" +
+                description + "\n";
     }
 }

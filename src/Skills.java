@@ -9,8 +9,8 @@ public class Skills extends Person {
     }
 
     public Skills() {
-        skill="";
-        rating="";
+        skill = "";
+        rating = "";
     }
 
     public String getSkill() {
@@ -28,8 +28,9 @@ public class Skills extends Person {
     public void setRating(String rating) {
         this.rating = rating;
     }
+
     @Override
     public String toString() {
-        return skill +", "+rating;
+        return skill + ", " + rating;
     }
 }

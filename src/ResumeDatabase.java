@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class ResumeDatabase {
     private ArrayList<Resume> resumeList;
+
     public ResumeDatabase(ArrayList<Resume> resumeList) {
         this.resumeList = resumeList;
     }
